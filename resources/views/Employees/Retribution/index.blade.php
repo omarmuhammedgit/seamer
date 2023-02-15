@@ -14,13 +14,31 @@
         <div class="my-auto">
             <div class="d-flex">
                 <h4 class="content-title mb-0 my-auto">الموظفين</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ عرض
-                    الموظفين</span>
+                    القصاصين</span>
             </div>
         </div>
     </div>
     <!-- breadcrumb -->
 @endsection
 @section('content')
+
+@if(session()->has('edit'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{ session()->get('edit') }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+
+@if(session()->has('delete'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>{{ session()->get('delete') }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
     <!-- row opened -->
     <div class="row row-sm">
 
@@ -54,10 +72,13 @@
                                                 <button aria-expanded="false" aria-haspopup="true" class="btn ripple btn-primary"
                                                 data-toggle="dropdown" type="button">خيارات<i class="fas fa-caret-down ml-1"></i></button>
                                                 <div class="dropdown-menu tx-13">
-                                                   <button class="btn ripple btn-primary" ><a class="dropdown-item" href="#">تعديل</a></button>
+                                                   <button class="btn ripple btn-primary" ><a class="dropdown-item" href="edit-Retribution/{{$retribution->id}}">تعديل</a></button>
                                                    <button class="btn ripple btn-primary" ><a class="dropdown-item " href="#">فحص</a></button>
-                                                    <button class="btn ripple btn-primary" > <a class="dropdown-item" href="#">حذف</a></button>
-                                                </div>
+                                                   <button class="btn btn-danger btn-block"> <a class="dropdown-item" href="#">
+                                                    <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
+                                                       data-id="{{$retribution->id}}" data-section_name="" data-toggle="modal"
+                                                       href="#modaldemo9" title="حذف"> حذف</a></a></button>
+                                                    </div>
                                             </div>
                                         </td>
                                     </tr>
@@ -72,11 +93,36 @@
         <!--/div-->
 
     </div>
+
     <!-- /row -->
     </div>
     <input type="hidden" id="token_search" value="{{ csrf_token() }}">
     <!-- Container closed -->
     </div>
+    <!-- delete -->
+   <div class="modal" id="modaldemo9">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">حذف الموظف</h6><button aria-label="Close" class="close" data-dismiss="modal"
+                                                               type="button"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form action="{{route('Retribution-delete')}}" method="post">
+                {{-- {{method_field('delete')}} --}}
+                {{csrf_field()}}
+                <div class="modal-body">
+                    <p>هل انت متاكد من عملية الحذف ؟</p><br>
+                    <input type="hidden" name="id" id="id" value="">
+                    {{-- <input class="form-control" name="section_name" id="section_name" type="text" readonly> --}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                    <button type="submit" class="btn btn-danger">تاكيد</button>
+                </div>
+        </div>
+        </form>
+    </div>
+</div>
     <!-- main-content closed -->
 @endsection
 @section('js')
@@ -99,4 +145,15 @@
     <script src="{{ URL::asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js') }}"></script>
     <!--Internal  Datatable js -->
     <script src="{{ URL::asset('assets/js/table-data.js') }}"></script>
+
+    <script>
+        $('#modaldemo9').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var section_name = button.data('section_name')
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #section_name').val(section_name);
+        })
+    </script>
     @endsection

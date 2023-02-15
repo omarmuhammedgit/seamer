@@ -122,7 +122,7 @@
                                                    <button class="btn btn-danger btn-block"> <a class="dropdown-item" href="#">
                                                     <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
                                                        data-id="{{$employee->id}}" data-section_name="" data-toggle="modal"
-                                                       href="#modaldemo9" title="حذف"> حذف</a></button>
+                                                       href="#modaldemo9" title="حذف"> حذف</a></a></button>
                                                 </div>
                                             </div>
                                          </td>
@@ -336,7 +336,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
-                <h6 class="modal-title">حذف القسم</h6><button aria-label="Close" class="close" data-dismiss="modal"
+                <h6 class="modal-title">حذف الموظف</h6><button aria-label="Close" class="close" data-dismiss="modal"
                                                                type="button"><span aria-hidden="true">&times;</span></button>
             </div>
             <form action="{{route('Employees-delete')}}" method="post">

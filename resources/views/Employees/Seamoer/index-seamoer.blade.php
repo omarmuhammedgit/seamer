@@ -21,57 +21,27 @@
     <!-- breadcrumb -->
 @endsection
 @section('content')
+
+@if(session()->has('edit'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{ session()->get('edit') }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+
+@if(session()->has('delete'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>{{ session()->get('delete') }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
     <!-- row opened -->
     <div class="row row-sm">
-        {{-- <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row row-sm mg-b-20">
-                        <div class="col-lg-4 mg-t-20 mg-lg-t-0">
-                            <p class="mg-b-10">اسم الموظف</p><select class="form-control select2" id="search_name"
-                                name="search_name">
-                                <option label="الكل" value="الكل">
-                                </option>
-                                @foreach ($employees as $employee)
-                                    <option value="{{ $employee->first_name }}">
-                                        {{ $employee->first_name }}
-                                    </option>
-                                @endforeach
 
-                            </select>
-                        </div><!-- col-4 -->
-                        <div class="col-lg-4 mg-t-20 mg-lg-t-0">
-                            <p class="mg-b-10">الصلاحية</p><select class="form-control select2" id="search_permission"
-                                name="search_permission">
-                                <option label="الكل">
-                                </option>
-                                @foreach ($employees as $employee)
-                                    <option value="{{ $employee->id }}">
-                                        {{ $employee->permission }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div><!-- col-4 -->
-                        <div class="col-lg-4 mg-t-20 mg-lg-t-0">
-                            <p class="mg-b-10">المسمى الوظيفي</p><select class="form-control select2" id="search_job_title"
-                                name="search_job_title">
-                                <option label="الكل">
-                                </option>
-                                @foreach ($employees as $employee)
-                                    <option value="{{ $employee->job_title }}">
-                                        {{ $employee->job_title }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div><!-- col-4 -->
-                        <div class="col-lg-4 mg-t-20 mg-lg-t-0">
-                            <p class="mg-b-10">تاريخ التعين</p>
-                            <input type="date" name="saledate" id="saledate">
-                        </div><!-- col-4 -->
-                    </div>
-                </div>
-            </div>
-        </div> --}}
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-body">
@@ -102,9 +72,12 @@
                                                 <button aria-expanded="false" aria-haspopup="true" class="btn ripple btn-primary"
                                                 data-toggle="dropdown" type="button">خيارات<i class="fas fa-caret-down ml-1"></i></button>
                                                 <div class="dropdown-menu tx-13">
-                                                   <button class="btn ripple btn-primary" ><a class="dropdown-item" href="#">تعديل</a></button>
-                                                   <button class="btn ripple btn-primary" ><a class="dropdown-item " href="#">فحص</a></button>
-                                                    <button class="btn ripple btn-primary" > <a class="dropdown-item" href="#">حذف</a></button>
+                                                  <button class="btn btn-warning btn-block"> <a class="dropdown-item" href="edit-Seamoer/{{$seamoer->id}}">تعديل</a></button>
+                                                   <button class="btn btn-info btn-block"> <a class="dropdown-item " href="#"> فحص</a></button>
+                                                   <button class="btn btn-danger btn-block"> <a class="dropdown-item" href="#">
+                                                    <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
+                                                       data-id="{{$seamoer->id}}" data-section_name="" data-toggle="modal"
+                                                       href="#modaldemo9" title="حذف"> حذف</a></a></button>
                                                 </div>
                                             </div>
                                         </td>

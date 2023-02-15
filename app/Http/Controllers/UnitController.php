@@ -99,4 +99,27 @@ class UnitController extends Controller
     {
         //
     }
+    public function updateunit(Request $request)
+    {
+        $id=$request->id;
+        $validatedData = $request->validate([
+            'name_unit' => 'required|max:255'
+
+        ],[
+           'name_unit.required'=>'يرجى ادخال اسم الوحدة',
+        ]);
+        Unit::find($id)->update([
+            'name_unit'=>$request->name_unit,
+            'sub_unit'=>$request->sub_unit]);
+            session()->flash('edit','تم تعديل الوحدة بنجاح');
+
+
+            return redirect()->back() ;
+        }
+        public function deleteunit(Request $request){
+            $id = $request->id;
+            Unit::find($id)->delete();
+            session()->flash('delete','تم حذف الوحدة بنجاح');
+            return redirect()->back() ;
+        }
 }

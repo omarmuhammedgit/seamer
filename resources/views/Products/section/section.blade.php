@@ -30,6 +30,23 @@
     </ul>
 </div>
 @endif
+@if(session()->has('edit'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{ session()->get('edit') }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+
+@if(session()->has('delete'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>{{ session()->get('delete') }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
 				<div class="row row-sm">
 					<div class="col-xl-12">
 						<div class="card">
@@ -66,14 +83,17 @@
 												<td>{{$section->sub_section}}</td>
 												<td>
 
-                                                    <div class="dropdown">
-                                                        <button aria-expanded="false" aria-haspopup="true" class="btn ripple btn-primary"
-                                                        data-toggle="dropdown" type="button">خيارات<i class="fas fa-caret-down ml-1"></i></button>
-                                                        <div class="dropdown-menu tx-13">
-                                                          <button class="btn btn-warning btn-block"> <a class="dropdown-item" href="#">تعديل</a></button>
-                                                           <button class="btn btn-danger btn-block"> <a class="dropdown-item" href="#">حذف</a></button>
-                                                        </div>
-                                                    </div>                                              </td>
+
+                                                    <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
+                                                       data-id="{{ $section->id }}" data-name_section="{{ $section->name_section }}"
+                                                       data-sub_section="{{ $section->sub_section }}" data-toggle="modal" href="#exampleModal2"
+                                                       title="تعديل"><i class="las la-pen"></i></a>
+
+                                                    <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
+                                                       data-id="{{ $section->id }}" data-name_section="{{ $section->name_section }}" data-toggle="modal"
+                                                       href="#modaldemo9" title="حذف"><i class="las la-trash"></i></a>
+                                                </td>
+                                                </td>
 											</tr>
                                             @endforeach
 										</tbody>
@@ -118,6 +138,64 @@
                         </div>
                     </div>
 					<!--/div-->
+                               <!-- edit -->
+             <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">تعديل القسم</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form action="{{route('section-update')}}" method="post" autocomplete="off">
+                            {{-- {{method_field('patch')}} --}}
+                            {{csrf_field()}}
+                            <div class="form-group">
+                                <input type="hidden" name="id" id="id" value="">
+                                <label for="recipient-name" class="col-form-label">اسم القسم:</label>
+                                <input class="form-control" name="name_section" id="name_section" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">قسم الفرعي:</label>
+                                <textarea class="form-control" id="sub_section" name="sub_section"></textarea>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">تاكيد</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- delete -->
+        <div class="modal" id="modaldemo9">
+         <div class="modal-dialog modal-dialog-centered" role="document">
+             <div class="modal-content modal-content-demo">
+                 <div class="modal-header">
+                     <h6 class="modal-title">حذف التصميم</h6><button aria-label="Close" class="close" data-dismiss="modal"
+                                                                    type="button"><span aria-hidden="true">&times;</span></button>
+                 </div>
+                 <form action="{{route('section-delete')}}" method="post">
+                     {{-- {{method_field('delete')}} --}}
+                     {{csrf_field()}}
+                     <div class="modal-body">
+                         <p>هل انت متاكد من عملية الحذف ؟</p><br>
+                         <input type="hidden" name="id" id="id" value="">
+                         <input class="form-control" name="name_section" id="name_section" type="text" readonly>
+                     </div>
+                     <div class="modal-footer">
+                         <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                         <button type="submit" class="btn btn-danger">تاكيد</button>
+                     </div>
+             </div>
+             </form>
+         </div>
+     </div>
 
 				<!-- /row -->
 			<!-- Container closed -->
@@ -144,4 +222,27 @@
 <script src="{{URL::asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js')}}"></script>
 <!--Internal  Datatable js -->
 <script src="{{URL::asset('assets/js/table-data.js')}}"></script>
+<script>
+    $('#exampleModal2').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget)
+        var id = button.data('id')
+        var name_section = button.data('name_section')
+        var sub_section = button.data('sub_section')
+        var modal = $(this)
+        modal.find('.modal-body #id').val(id);
+        modal.find('.modal-body #name_section').val(name_section);
+        modal.find('.modal-body #sub_section').val(sub_section);
+    })
+</script>
+
+<script>
+    $('#modaldemo9').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget)
+        var id = button.data('id')
+        var name_section = button.data('name_section')
+        var modal = $(this)
+        modal.find('.modal-body #id').val(id);
+        modal.find('.modal-body #name_section').val(name_section);
+    })
+</script>
 @endsection

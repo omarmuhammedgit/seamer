@@ -168,7 +168,7 @@
                             <div class="">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">اسم المستخدم</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1"
+                                    <input type="text" class="form-control" id="exampleInputEmail1"
                                         placeholder="ادحل اسم المستخدم" name="name_user">
                                 </div>
                                 <div class="form-group">

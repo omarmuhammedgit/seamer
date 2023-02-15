@@ -89,6 +89,7 @@ class SeamoerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Seamoer $seamoer)
+
     {
         //
     }
@@ -126,4 +127,57 @@ class SeamoerController extends Controller
     {
         //
     }
+    public function editSeamoer($id){
+        $seamoer=Seamoer::where('id',$id)->first();
+        return view('Employees.Seamoer.edit-seamoer',compact('seamoer'));
+    }
+
+
+    public function updateSeamoer(Request $request){
+
+        $id=$request->id;
+
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'shopname' => 'required|max:255',
+            'facilitynumber'=>'required',
+            'phone'=>'required|max:10',
+            // 'email' => 'email:rfc,dns',
+            'city'=>'required',
+            'district'=>'required',
+            'street'=>'required'
+        ],[
+           'name.required'=>'يرجى ادخال اسم القصاص',
+           'shopname.required'=>'يرجى ادخال اسم المحل',
+           'recordnumber.unique'=>'رقم السجل موجود مسبقأ',
+           'facilitynumber.required'=>'يرجى ادخال رقم المنشاة',
+           'recordnumber.required'=>'يرجى ادخال رقم السجل',
+           'phone.required'=>'يرجى ادخال رقم الهاتف',
+        //    'email.email'=>'يجب ان يكون الايميل صالحا',
+           'phone.max'=>'يجب ان يكون رقم الهاتف 10 ارقام',
+           'city.required'=>'يرجى ادخال  اسم المدينة',
+           'street.required'=>'يرجى ادخال  اسم الشارع',
+           'district'=>'يرجى ادخال  اسم الحي'
+
+
+        ]);
+        Seamoer::find($id)->update([
+            'name'=>$request->name,
+            'shopname'=>$request->shopname,
+            'recordnumber'=>$request->recordnumber,
+            'phone'=>$request->phone,
+            'facilitynumber'=>$request->facilitynumber,
+            'email'=>$request->email,
+            'city'=>$request->city,
+            'district'=>$request->district,
+            'street'=>$request->street,
+            'accountnumber'=>$request->accountnumber,
+            'bankname'=>$request->bankname,
+            'statement'=>$request->statement
+        ]);
+        session()->flash('edit','تم تعديل الخياط بنجاح');
+
+        $seamoers=Seamoer::all();
+        return view('Employees.Seamoer.index-seamoer',compact('seamoers'));
+     }
 }

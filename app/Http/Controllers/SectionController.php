@@ -42,7 +42,6 @@ class SectionController extends Controller
         ],[
            'name_section.required'=>'يرجى ادخال اسم القسم',
 
-
         ]);
         Section::create([
             'name_section'=>$request->name_section,
@@ -95,5 +94,30 @@ class SectionController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function updatesection(Request $request){
+        $id=$request->id;
+        $validatedData = $request->validate([
+            'name_section' => 'required|max:255'
+
+        ],[
+           'name_section.required'=>'يرجى ادخال اسم القسم',
+
+        ]);
+        Section::find($id)->update([
+            'name_section'=>$request->name_section,
+            'sub_section'=>$request->sub_section
+
+        ]);
+        session()->flash('edit','تم تعديل القسم بنجاح');
+
+
+        return redirect()->back() ;
+    }
+    public function deletesection(Request $request){
+        $id = $request->id;
+        Section::find($id)->delete();
+        session()->flash('delete','تم حذف القسم بنجاح');
+        return redirect()->back() ;
     }
 }

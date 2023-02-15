@@ -123,5 +123,64 @@ class RetributionController extends Controller
     {
         //
     }
+    public function editRetribution($id){
+        $retribution=Retribution::where('id',$id)->first();
+        return view('Employees.Retribution.edit-retribution',compact('retribution'));
+
+    }
+     public function updateRetribution(Request $request){
+
+        $id=$request->id;
+
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'shopname' => 'required|max:255',
+            'facilitynumber'=>'required',
+            'phone'=>'required|max:10',
+            // 'email' => 'email:rfc,dns',
+            'city'=>'required',
+            'district'=>'required',
+            'street'=>'required'
+        ],[
+           'name.required'=>'يرجى ادخال اسم القصاص',
+           'shopname.required'=>'يرجى ادخال اسم المحل',
+           'recordnumber.unique'=>'رقم السجل موجود مسبقأ',
+           'facilitynumber.required'=>'يرجى ادخال رقم المنشاة',
+           'recordnumber.required'=>'يرجى ادخال رقم السجل',
+           'phone.required'=>'يرجى ادخال رقم الهاتف',
+        //    'email.email'=>'يجب ان يكون الايميل صالحا',
+           'phone.max'=>'يجب ان يكون رقم الهاتف 10 ارقام',
+           'city.required'=>'يرجى ادخال  اسم المدينة',
+           'street.required'=>'يرجى ادخال  اسم الشارع',
+           'district'=>'يرجى ادخال  اسم الحي'
+
+
+        ]);
+
+        Retribution::find($id)->update([
+            'name'=>$request->name,
+            'shopname'=>$request->shopname,
+            'recordnumber'=>$request->recordnumber,
+            'phone'=>$request->phone,
+            'facilitynumber'=>$request->facilitynumber,
+            'email'=>$request->email,
+            'city'=>$request->city,
+            'district'=>$request->district,
+            'street'=>$request->street,
+            'accountnumber'=>$request->accountnumber,
+            'bankname'=>$request->bankname,
+            'statement'=>$request->statement
+        ]);
+        session()->flash('edit','تمت تعديل الموظف بنجاح');
+
+        $retributions=Retribution::all();
+        return view('Employees.Retribution.index',compact('retributions'));
+     }
+     public function deleteRetribution(Request $request){
+        $id = $request->id;
+        Retribution::find($id)->delete();
+        session()->flash('delete','تم حذف الموظف بنجاح');
+        return redirect('/Retribution');
+    }
 
 }

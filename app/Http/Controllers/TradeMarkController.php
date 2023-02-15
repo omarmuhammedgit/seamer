@@ -38,12 +38,10 @@ class TradeMarkController extends Controller
     {
 
         $validatedData = $request->validate([
-            'name_trade_mark' => 'required|max:255'
+            'name_tradeMark' => 'required|max:255'
 
         ],[
-           'name_trade_mark.required'=>'يرجى ادخال اسم العلامة التجارية',
-
-
+           'name_tradeMark.required'=>'يرجى ادخال اسم العلامة التجارية',
         ]);
         TradeMark::create([
             'name_trade_mark'=>$request->name_tradeMark
@@ -97,4 +95,27 @@ class TradeMarkController extends Controller
     {
         //
     }
-}
+    public function updatetradeMark(Request $request){
+        $id=$request->id;
+        $validatedData = $request->validate([
+            'name_trade_mark' => 'required|max:255'
+
+        ],[
+           'name_trade_mark.required'=>'يرجى ادخال اسم العلامة التجارية',
+        ]);
+        TradeMark::find($id)->update([
+            'name_trade_mark'=>$request->name_trade_mark
+        ]);
+        session()->flash('edit','تم تعديل العلامة التجارية بنجاح');
+
+
+        return redirect()->back() ;
+    }
+    public function deletetradeMark(Request $request){
+        $id = $request->id;
+        TradeMark::find($id)->delete();
+        session()->flash('delete','تم حذف العلامة التجارية بنجاح');
+        return redirect()->back() ;
+    }
+    }
+

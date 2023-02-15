@@ -34,19 +34,42 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route Employees
 Route::resource('Employees',EmployeController::class);
 Route::post('/Employees/ajax_search',[EmployeController::class,'ajax_search'])->name('ajax_search');
 Route::get('/edit-employee/{id}',[EmployeController::class,'editEmployess']);
 Route::post('Employees-update',[EmployeController::class,'updateEmployees'])->name('Employees-update');
 Route::post('Employees-delete',[EmployeController::class,'deleteEmployees'])->name('Employees-delete');
+//Route Seamoer
 Route::resource('Seamoer-create',SeamoerController::class);
+Route::get('edit-Seamoer/{id}',[SeamoerController::class,'editSeamoer']);
+Route::post('Seamoer-update',[SeamoerController::class,'updateSeamoer'])->name('Seamoer-update');
+Route::post('Seamoer-delete',[SeamoerController::class,'deleteSeamoer'])->name('Seamoer-delete');
+//Routes Retribution
 Route::resource('Retribution',RetributionController::class);
+Route::get('edit-Retribution/{id}',[RetributionController::class,'editRetribution']);
+Route::post('Retribution-update',[RetributionController::class,'updateRetribution'])->name('Retribution-update');
+Route::post('Retribution-delete',[RetributionController::class,'deleteRetribution'])->name('Retribution-delete');
 Route::resource('Supplier',SupplierController::class);
+//Route design
 Route::resource('Products-design',DesignController::class);
+Route::post('design-update',[DesignController::class,'updatedesign'])->name('design-update');
+Route::post('design-delete',[DesignController::class,'deletedesign'])->name('design-delete');
+//Route section
 Route::resource('Products-section',SectionController::class);
+Route::post('section-update',[SectionController::class,'updatesection'])->name('section-update');
+Route::post('section-delete',[SectionController::class,'deletesection'])->name('section-delete');
+//Route fabrice
 Route::resource('Products-fabrice',FabricsController::class);
+Route::post('fabrice-update',[FabricsController::class,'updatefabrice'])->name('fabrice-update');
+Route::post('fabrice-delete',[FabricsController::class,'deletefabrice'])->name('fabrice-delete');
+//Route unit
 Route::resource('Products-unit',UnitController::class);
+Route::post('unit-update',[UnitController::class,'updateunit'])->name('unit-update');
+Route::post('unit-delete',[UnitController::class,'deleteunit'])->name('unit-delete');
 Route::resource('Products-tradeMark',TradeMarkController::class);
+Route::post('tradeMark-update',[TradeMarkController::class,'updatetradeMark'])->name('tradeMark-update');
+Route::post('tradeMark-delete',[TradeMarkController::class,'deletetradeMark'])->name('tradeMark-delete');
 Route::resource('Products-ctreate',ProductController::class);
 Route::resource('Sale-point',SellingPointController::class);
 Route::resource('Sale-menu',SaleController::class);

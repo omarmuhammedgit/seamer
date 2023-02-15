@@ -137,7 +137,7 @@ class EmployeController extends Controller
     public function deleteEmployees(Request $request){
         $id = $request->id;
         Employe::find($id)->delete();
-        session()->flash('delete','تم حذف القسم بنجاح');
+        session()->flash('delete','تم حذف الموظف بنجاح');
         return redirect('/Employees');
     }
     public function ajax_search(Request $request){
@@ -207,4 +207,5 @@ class EmployeController extends Controller
         $employees=Employe::all();
         return view('Employees.Employees.employees',compact('employees'));
     }
+    
 }

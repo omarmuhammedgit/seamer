@@ -103,4 +103,39 @@ class FabricsController extends Controller
     {
         //
     }
+    public function updatefabrice(Request $request)
+    {
+
+        $id=$request->id;
+
+        $validatedData = $request->validate([
+            'type_fabrice' => 'required|max:255',
+            'number_fabrice'=>'required|max:20|unique:fabrics,number_fabrice,'.$id,
+            'color_fabrice'=>'required'
+
+        ],[
+           'type_fabrice.required'=>'يرجى ادخال اسم القماش',
+           'number_fabrice.unique'=>'رقم القماش موجود مسبقأ',
+           'number_fabrice.required'=>'يرجى ادخال رقم القماش',
+           'color_fabrice.required'=>'يرجى ادخال اللون القماش'
+
+
+        ]);
+
+        Fabrics::find($id)->update([
+            'type_fabrice'=>$request->type_fabrice,
+            'number_fabrice'=>$request->number_fabrice,
+            'color_fabrice'=>$request->color_fabrice
+        ]);
+        session()->flash('edit','تم تعديل القماش بنجاح');
+
+
+        return redirect()->back() ;
+    }
+    public function deletefabrice(Request $request){
+        $id = $request->id;
+        Fabrics::find($id)->delete();
+        session()->flash('delete','تم حذف القماش بنجاح');
+        return redirect()->back() ;
+    }
 }
