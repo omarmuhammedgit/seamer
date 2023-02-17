@@ -9,5 +9,6 @@ class Employe extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    protected $connection='tenant';
 
 }

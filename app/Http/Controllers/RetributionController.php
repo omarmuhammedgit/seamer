@@ -41,7 +41,6 @@ class RetributionController extends Controller
             'shopname' => 'required|max:255',
             'recordnumber'=>'required|unique:retributions|max:20',
             'facilitynumber'=>'required',
-            'job_title'=>'required',
             'phone'=>'required|max:10',
             // 'email' => 'email:rfc,dns',
             'city'=>'required',

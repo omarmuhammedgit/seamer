@@ -14,6 +14,7 @@ class DesignController extends Controller
      */
     public function index()
     {
+        $allseamoer=app()->make('allseamoer.active');
         // $num = design::latest()->first()->number_design;
 
         // if (empty($num)) {
@@ -47,6 +48,7 @@ class DesignController extends Controller
      */
     public function store(Request $request)
     {
+        $allseamoer=app()->make('allseamoer.active');
         $validatedData = $request->validate([
             'name_design' => 'required|max:255',
             'number_design'=>'required|unique:designs|max:20',
@@ -112,6 +114,8 @@ class DesignController extends Controller
         //
     }
     public function updatedesign(Request $request){
+
+        $allseamoer=app()->make('allseamoer.active');
         $id=$request->id;
         $validatedData = $request->validate([
             'name_design' => 'required|max:255',
@@ -134,6 +138,8 @@ class DesignController extends Controller
         return redirect()->back() ;
     }
     public function deletedesign(Request $request){
+
+        $allseamoer=app()->make('allseamoer.active');
         $id = $request->id;
         design::find($id)->delete();
         session()->flash('delete','تم حذف التصميم بنجاح');

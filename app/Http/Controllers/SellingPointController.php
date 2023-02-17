@@ -61,8 +61,8 @@ class SellingPointController extends Controller
     {
 
         $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'invoice_number'=>'required|unique:customers|max:20',
+            // 'name' => 'required|max:255',
+            // 'invoice_number'=>'required|unique:customers|max:20',
             'phone'=>'required|max:10',
             // 'email' => 'email:rfc,dns',
             'number_dresses'=>'required',
@@ -72,9 +72,9 @@ class SellingPointController extends Controller
             'discount'=>'required',
             'receivedamount'=>'required'
         ],[
-           'name.required'=>'يرجى ادخال اسم العميل',
-           'invoice_number.required'=>'يرجى ادخال رقم الفاتورة',
-           'invoice_number.unique'=>'رقم الفاتورة موجود مسبقأ',
+        //    'name.required'=>'يرجى ادخال اسم العميل',
+        //    'invoice_number.required'=>'يرجى ادخال رقم الفاتورة',
+        //    'invoice_number.unique'=>'رقم الفاتورة موجود مسبقأ',
            'phone.required'=>'يرجى ادخال رقم الهاتف',
         //    'email.email'=>'يجب ان يكون الايميل صالحا',
            'phone.max'=>'يجب ان يكون رقم الهاتف 10 ارقام',

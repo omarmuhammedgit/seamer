@@ -9,4 +9,5 @@ class Retribution extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    protected $connection='tenant';
 }

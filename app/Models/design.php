@@ -9,4 +9,6 @@ class design extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    protected $connection='tenant';
+
 }

@@ -9,6 +9,8 @@ class Size extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    protected $connection='tenant';
+    
     public function fabric(){
         return $this->belongsTo(Fabrics::class);
      }

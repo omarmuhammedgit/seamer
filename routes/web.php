@@ -28,10 +28,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('auth.register');
 });
 
 Auth::routes();
+Route::middleware('setActiveSeamoer')->group(function()
+{
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //Route Employees
@@ -77,5 +79,8 @@ Route::resource('Sale-reference',SaleController::class);
 Route::get('/print-invoice/{id}',[SaleController::class,'printInvoice']);
 Route::resource('purchases-menu',PurchaseController::class);
 Route::get('/{page}', [AdminController::class,'index']);
+
+}
+);
 
 

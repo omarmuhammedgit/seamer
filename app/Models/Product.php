@@ -9,6 +9,8 @@ class Product extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    protected $connection='tenant';
+    
     public function tradeMark(){
         return $this->belongsTo(TradeMark::class);
     }

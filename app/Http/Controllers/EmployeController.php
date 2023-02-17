@@ -16,6 +16,7 @@ class EmployeController extends Controller
 
     public function index()
     {
+        $allseamoer=app()->make('allseamoer.active');
         $employees=Employe::all();
         return view('Employees.Employees.employees',compact('employees'));
     }
@@ -207,5 +208,5 @@ class EmployeController extends Controller
         $employees=Employe::all();
         return view('Employees.Employees.employees',compact('employees'));
     }
-    
+
 }
